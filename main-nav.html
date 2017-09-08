@@ -1,0 +1,194 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../app-layout/app-layout.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../paper-menu/paper-menu.html">
+<link rel="import" href="../psu-logo/psu-logo.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+
+<!--
+`main-nav`
+A navigation menu for websites.
+
+@demo demo/index.html
+-->
+
+<dom-module id="main-nav">
+  <template>
+    <style>
+       :host {
+        display: block;
+        z-index: 100;
+        position: relative;
+        --paper-tabs-selection-bar-color: transparent;
+        --app-drawer-content-container: background-color: #292929;
+        --app-drawer-width: 280px;
+      }
+
+      .toolbar {
+        background-color: #292929;
+      }
+
+      .burger {
+        position: absolute;
+        right: 0;
+        color: #fff;
+      }
+
+      .course-name {
+        background-color: #696969;
+        color: #fff;
+        position: absolute;
+        top: 0;
+        left: 200px;
+        height: 31%;
+        font-size: 16px;
+        padding: 22px;
+        border-right: solid 1px whitesmoke;
+        border-left: solid 1px whitesmoke;
+      }
+
+      psu-logo {
+        max-width: 45%;
+        top: 5px;
+        right: 20px;
+      }
+
+      psu-logo.logo-drawer {
+        margin: 0 15px 0;
+      }
+
+      .desktop-tabs {
+        color: #fff;
+        position: absolute;
+        right: 0;
+        height: 100%;
+      }
+
+      .desktop-tab:hover {
+        background-color: #696969;
+      }
+
+      paper-tabs {
+        font-size: 16px;
+        text-transform: uppercase;
+      }
+
+      paper-menu {
+        padding: 0;
+      }
+
+      #drawer-menu-wrap {
+        display: flex;
+        border-bottom: solid 1px whitesmoke;
+        background-color: #696969
+      }
+
+      .drawer-title {
+        color: #fff;
+        font-size: 14px;
+        margin-top: 15px;
+        border-left: solid 1px whitesmoke;
+        padding: 0 0 15px 15px;
+        width: 84%;
+      }
+
+      .drawer-link {
+        background-color: #292929;
+        display: flex;
+        padding: 15px;
+        border-bottom: solid 1px whitesmoke;
+        font-size: 16px;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+
+      .drawer-link:focus {
+        background-color: #bebebe;
+        color: #000;
+      }
+    </style>
+
+    <iron-media-query query="(min-width:{{breakpoint}})" query-matches="{{resolution}}"></iron-media-query>
+    <iron-media-query query="(max-width: 700px)" query-matches="{{course-name}}"></iron-media-query>
+    <app-header reveals>
+      <app-toolbar class="toolbar">
+        <div class="brand-logo">
+          <psu-logo college="Eberly College of Science" url="http://science.psu.edu/"></psu-logo>
+        </div>
+        <template is="dom-if" if="{{!course-name}}">
+          <a href="#">
+            <div class="course-name">{{course}}</div>
+          </a>
+        </template>
+
+        <template is="dom-if" if="{{resolution}}">
+          <paper-tabs class="desktop-tabs" selected="0" noink>
+            <paper-tab class="desktop-tab">Home</paper-tab>
+            <paper-tab class="desktop-tab">Posts</paper-tab>
+          </paper-tabs>
+        </template>
+
+
+
+        <template is="dom-if" if="{{!resolution}}">
+          <paper-icon-button class="burger" icon="menu" onclick="drawer.toggle()"></paper-icon-button>
+        </template>
+
+      </app-toolbar>
+    </app-header>
+
+    <app-drawer id="drawer" swipe-open>
+      <div id="drawer-menu-wrap">
+        <psu-logo class="logo-drawer" college="Eberly College of Science" word-wrap="50"></psu-logo>
+        <div class="drawer-title">{{course}}</div>
+      </div>
+      <paper-menu selected="0">
+        <paper-item class="drawer-link">Home</paper-item>
+        <paper-item class="drawer-link">Posts</paper-item>
+      </paper-menu>
+    </app-drawer>
+
+
+
+
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'main-nav',
+
+      properties: {
+        /**
+         * The course name.
+         */
+        course: {
+          type: String,
+          reflectToAttribute: true,
+          notify: true,
+        },
+
+        /**
+         * The university brand/logo.
+         */
+        brand: {
+          type: String,
+          reflectToAttribute: true,
+          notify: true,
+        },
+
+        /**
+        * Adjust the mobile breakpoint depending on how many links you have in the menu.
+        */
+        breakpoint: {
+          type: String,
+          reflectToAttribute: true,
+          notify: true,
+        },
+      },
+
+    });
+  </script>
+</dom-module>
