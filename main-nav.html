@@ -57,7 +57,7 @@ A navigation menu for websites.
       }
 
 
-      
+
       .desktop-tab:focus {
         background-color: var(--app-secondary-color);
       }
@@ -76,6 +76,8 @@ A navigation menu for websites.
 
       psu-logo.logo-drawer {
         margin: 0 15px 0;
+        position: relative;
+        right: 6px;
       }
 
       .toolbar {
@@ -114,8 +116,7 @@ A navigation menu for websites.
         border-left: var(--app-border-style);
         font-size: 14px;
         margin-top: 15px;
-        padding: 0 0 15px 15px;
-        width: 84%;
+        padding: 0 15px 10px 0;
       }
 
       .drawer-link {
@@ -144,12 +145,12 @@ A navigation menu for websites.
         </template>
 
         <template is="dom-if" if="{{resolution}}">
-          <paper-tabs class="desktop-tabs" selected="1" noink>
+          <paper-tabs class="desktop-tabs" selected="0" noink>
             <paper-tab class="desktop-tab" link>
-              <a href="#" class="desktop-link">Home</a>
+              <a href="#">Home</a>
             </paper-tab>
             <paper-tab class="desktop-tab" link>
-                <a href="#" class="desktop-link">Posts</a>
+              <a href="#">Posts</a>
             </paper-tab>
           </paper-tabs>
         </template>
@@ -163,8 +164,9 @@ A navigation menu for websites.
       </app-toolbar>
     </app-header>
 
-    <app-drawer id="drawer" swipe-open>
+    <app-drawer id="drawer" align="right" swipe-open>
       <div id="drawer-menu-wrap">
+
         <psu-logo class="logo-drawer" college="Eberly College of Science" word-wrap="50"></psu-logo>
         <div class="drawer-title">{{course}}</div>
       </div>
@@ -211,6 +213,25 @@ A navigation menu for websites.
           type: String,
           reflectToAttribute: true,
           notify: true,
+        },
+
+        /**
+        * Links to the menu items.
+        */
+        items: {
+          type: Array,
+          value: function () {
+            return [
+              {
+                title: "Home",
+                url: "/home"
+              },
+              {
+                title: "Posts",
+                url: "/posts"
+              }
+            ]
+          }
         },
       },
 
