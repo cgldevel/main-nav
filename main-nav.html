@@ -19,32 +19,53 @@ A navigation menu for websites.
         display: block;
         z-index: 100;
         position: relative;
-        --paper-tabs-selection-bar-color: transparent;
-        --app-drawer-content-container: background-color: #292929;
-        --app-drawer-width: 280px;
+        --app-primary-color: #292929;
+        --app-secondary-color: #696969;
+        --app-font-color: #fff;
+        --app-border-style: solid 1px #f5f5f5;
       }
 
-      .toolbar {
-        background-color: #292929;
+      paper-menu {
+        padding: 0;
       }
 
-      .burger {
+      paper-tabs {
+        --paper-tabs-selection-bar: display: none;
+      }
+
+      paper-tab {
+        --paper-tab-content-unselected: opacity: 1;
+        opacity: 1;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+
+      .desktop-tabs {
         position: absolute;
         right: 0;
-        color: #fff;
+        height: 100%;
       }
 
-      .course-name {
-        background-color: #696969;
-        color: #fff;
-        position: absolute;
-        top: 0;
-        left: 200px;
-        height: 31%;
-        font-size: 16px;
-        padding: 22px;
-        border-right: solid 1px whitesmoke;
-        border-left: solid 1px whitesmoke;
+      .desktop-tabs a {
+        color: var(--app-font-color);
+        padding: 8px;
+        text-decoration: none;
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+      }
+
+
+      
+      .desktop-tab:focus {
+        background-color: var(--app-secondary-color);
+      }
+
+      app-drawer {
+        --app-drawer-content-container: background-color: #292929;
+        --app-drawer-width: 280px;
+        --app-drawer-scrim-background: display: none;
       }
 
       psu-logo {
@@ -57,55 +78,55 @@ A navigation menu for websites.
         margin: 0 15px 0;
       }
 
-      .desktop-tabs {
-        color: #fff;
+      .toolbar {
+        background-color: var(--app-primary-color);
+      }
+
+      .burger {
+        color: var(--app-font-color);
         position: absolute;
         right: 0;
-        height: 100%;
       }
 
-      .desktop-tab:hover {
-        background-color: #696969;
-      }
-
-      paper-tabs {
+      .course-name {
+        background-color: var(--app-secondary-color);
+        color: var(--app-font-color);
+        border-right: var(--app-border-style);
+        border-left: var(--app-border-style);
+        position: absolute;
+        top: 0;
+        left: 200px;
+        height: 31%;
         font-size: 16px;
-        text-transform: uppercase;
+        padding: 22px;
       }
 
-      paper-menu {
-        padding: 0;
-      }
+
 
       #drawer-menu-wrap {
+        background-color: var(--app-secondary-color);
+        border-bottom: var(--app-border-style);
         display: flex;
-        border-bottom: solid 1px whitesmoke;
-        background-color: #696969
       }
 
       .drawer-title {
-        color: #fff;
+        color: var(--app-font-color);
+        border-left: var(--app-border-style);
         font-size: 14px;
         margin-top: 15px;
-        border-left: solid 1px whitesmoke;
         padding: 0 0 15px 15px;
         width: 84%;
       }
 
       .drawer-link {
-        background-color: #292929;
+        background-color: var(--app-primary-color);
+        color: var(--app-font-color);
+        border-bottom: var(--app-border-style);
         display: flex;
         padding: 15px;
-        border-bottom: solid 1px whitesmoke;
         font-size: 16px;
-        color: #fff;
         text-transform: uppercase;
         font-weight: normal;
-      }
-
-      .drawer-link:focus {
-        background-color: #bebebe;
-        color: #000;
       }
     </style>
 
@@ -123,9 +144,13 @@ A navigation menu for websites.
         </template>
 
         <template is="dom-if" if="{{resolution}}">
-          <paper-tabs class="desktop-tabs" selected="0" noink>
-            <paper-tab class="desktop-tab">Home</paper-tab>
-            <paper-tab class="desktop-tab">Posts</paper-tab>
+          <paper-tabs class="desktop-tabs" selected="1" noink>
+            <paper-tab class="desktop-tab" link>
+              <a href="#" class="desktop-link">Home</a>
+            </paper-tab>
+            <paper-tab class="desktop-tab" link>
+                <a href="#" class="desktop-link">Posts</a>
+            </paper-tab>
           </paper-tabs>
         </template>
 
